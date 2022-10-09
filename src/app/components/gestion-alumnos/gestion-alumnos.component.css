@@ -1,0 +1,47 @@
+/* Structure */
+table {
+  width: 100%;
+  /* padding: 25px 50px 75px 100px; */
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 20%;
+}
+
+.mat-header-cell{
+    background-color: rgba(99, 99, 100, 0.856);
+    color: white;
+    font-size: 18px;
+    text-align: center !important;
+}
+
+.mat-button-base{
+  width: 10%;
+  float: right;
+}
+
+td.mat-column-acciones {
+  margin: 0 auto !important;
+}
+
+/* ------------------------------------ */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+.ng-select-disabled > .ng-select-container {
+  color: red;
+}
+
+.ng-select-disabled {
+  color: red;
+}
