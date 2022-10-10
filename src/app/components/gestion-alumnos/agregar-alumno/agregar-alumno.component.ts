@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Genero } from 'src/app/models/Genero';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-agregar-alumno',
@@ -23,7 +24,8 @@ export class AgregarAlumnoComponent implements OnInit {
   ];
   constructor(private fb: FormBuilder,
                 public dialogRef: MatDialogRef<AgregarAlumnoComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: string) {
+                @Inject(MAT_DIALOG_DATA) public data: string,
+                private toastr: ToastrService) {
     this.formularioAlumno = fb.group({
       nombres: new FormControl('', [Validators.required]),
       apellidos: new FormControl('', [Validators.required]),
@@ -40,7 +42,29 @@ export class AgregarAlumnoComponent implements OnInit {
   }
 
   agregarAlumno(){
+    if(this.formularioAlumno.get('nombres')?.errors?.['required']){
+      this.toastr.error('Es necesario ingresar nombres', 'Validaciones');
+    }
+    if(this.formularioAlumno.get('apellidos')?.errors?.['required']){
+      this.toastr.error('Es necesario ingresar apellidos', 'Validaciones');
+    }
+    if(this.formularioAlumno.get('email')?.errors?.['required']){
+      this.toastr.error('Es necesario ingresar email', 'Validaciones');
+    }else if(this.formularioAlumno.get('email')?.errors?.['email']){
+      this.toastr.error('Es necesario ingresar un correo valido', 'Validaciones');
+    }
+    if(this.formularioAlumno.get('contrasena')?.errors?.['pattern']){
+      this.toastr.error('La contraseña debe tener mínimo ocho y máximo 10 caracteres, al menos una letra mayúscula, una letra minúscula, un número y un carácter especial', 'Validaciones');
+    }else if(this.formularioAlumno.get('contrasena2')?.value !== this.formularioAlumno.get('contrasena')?.value){
+      this.toastr.error('Las contraseñas no coinciden', 'Validaciones');
+    }
+    if(this.formularioAlumno.get('genero')?.errors?.['required']){
+      this.toastr.error('Es necesario seleccionar genero', 'Validaciones');
+    }
 
+    if(this.formularioAlumno.valid){
+      this.toastr.success('Campos correctos', 'Validaciones');
+    }
   }
 
   onNoClick(): void {

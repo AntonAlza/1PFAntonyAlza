@@ -13,6 +13,7 @@ import { BooleanaStringPipe } from './pipes/booleana-string.pipe';
 import { TamanoTitulosDirective } from './directivas/tamano-titulos.directive';
 import { NombreApellidoPipe } from './pipes/nombre-apellido.pipe';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap'
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap'
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
-    NgbModule
+    NgbModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
