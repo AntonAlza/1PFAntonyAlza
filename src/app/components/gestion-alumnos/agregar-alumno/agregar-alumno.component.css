@@ -9,3 +9,8 @@
   top:-20px;
   right:-20px;
 }
+
+.form-error{
+  color: red;
+  font-size: 12px;
+}

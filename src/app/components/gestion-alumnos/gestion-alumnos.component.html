@@ -41,13 +41,13 @@
         <!-- Acciones -->
         <ng-container matColumnDef="acciones">
             <th mat-header-cell *matHeaderCellDef mat-sort-header appTamanoTitulos> Acciones </th>
-            <td mat-cell *matCellDef>
+            <td mat-cell *matCellDef="let i = index">
                 <div class="form-group row justify-content-center">
-                    <button mat-icon-button (click)="editarAlumno()">
+                    <button mat-icon-button (click)="editarAlumno(i)">
                         <mat-icon color="primary">edit</mat-icon>
                     </button>
         
-                    <button mat-icon-button>
+                    <button mat-icon-button (click)="eliminarAlumno(i)">
                         <mat-icon color="warn">delete</mat-icon>
                     </button>
                 </div>

@@ -15,6 +15,9 @@
                     <div class="col-xl-8 col-lg-8 col-md-8">
                         <input type="text" class="form-control" formControlName="nombres">
                     </div>
+                    <div class="form-error"  *ngIf="formularioAlumno.get('nombres')?.errors?.['required'] && formularioAlumno.get('nombre')?.touched">
+                        <span > Es necesario ingresar nombres.</span>
+                    </div>
                 </div>
                 <br>
                 <div class="row">
@@ -23,6 +26,9 @@
                     </div>
                     <div class="col-xl-8 col-lg-8 col-md-8">
                         <input type="text" class="form-control" formControlName="apellidos">
+                    </div>
+                    <div class="form-error"  *ngIf="formularioAlumno.get('apellidos')?.errors?.['required'] && formularioAlumno.get('apellidos')?.touched">
+                        <span > Es necesario ingresar apellidos.</span>
                     </div>
                 </div>
                 <br>
@@ -33,6 +39,12 @@
                     <div class="col-xl-8 col-lg-8 col-md-8">
                         <input type="text" class="form-control" formControlName="email">
                     </div>
+                    <div class="form-error"  *ngIf="formularioAlumno.get('email')?.errors?.['required'] && formularioAlumno.get('email')?.touched">
+                        <span > Es necesario ingresar email.</span>
+                    </div>
+                    <div class="form-error"  *ngIf="formularioAlumno.get('email')?.errors?.['email'] && formularioAlumno.get('email')?.touched">
+                        <span > Es necesario ingresar un correo valido.</span>
+                    </div>
                 </div>
                 <br>
                 <div class="row">
@@ -42,6 +54,9 @@
                     <div class="col-xl-8 col-lg-8 col-md-8">
                         <input type="password" class="form-control" formControlName="contrasena">
                     </div>
+                    <div class="form-error"  *ngIf="formularioAlumno.get('contrasena')?.errors?.['pattern'] && formularioAlumno.get('contrasena')?.touched">
+                        <span > La contraseña debe tener mínimo ocho y máximo 10 caracteres, al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.</span>
+                    </div>
                 </div>
                 <br>
                 <div class="row">
@@ -50,6 +65,9 @@
                     </div>
                     <div class="col-xl-8 col-lg-8 col-md-8">
                         <input type="password" class="form-control" formControlName="contrasena2">
+                    </div>
+                    <div class="form-error"  *ngIf="formularioAlumno.get('contrasena2')?.value !== formularioAlumno.get('contrasena')?.value && formularioAlumno.get('contrasena2')?.touched">
+                        <span > Las contraseñas no coinciden.</span>
                     </div>
                 </div>
                 <br>
@@ -61,6 +79,9 @@
                         <ng-select class="form-control form-select" formControlName="genero" >
                             <ng-option value="{{ item.id }}" *ngFor="let item of generos" >{{ item.descripcion }}</ng-option>
                         </ng-select>
+                    </div>
+                    <div class="form-error"  *ngIf="formularioAlumno.get('genero')?.errors?.['required'] && formularioAlumno.get('genero')?.touched">
+                        <span > Es necesario seleccionar genero.</span>
                     </div>
                 </div>
                 <br>
@@ -75,11 +96,10 @@
                 <br>          
                 <!-- <button type="button" class="btn btn-outline-success" type="submit">Agregar Alumno</button> -->
                 <mat-dialog-actions align="end">
-                    <button mat-button (click)="onNoClick()">Cerrar</button>
-                    <button mat-raised-button color="primary">Guardar</button>
+                    <button mat-raised-button color="primary" [disabled]="formularioAlumno.invalid">Guardar</button>
                 </mat-dialog-actions>
-                
             </form> 
+            <!-- <button mat-button (click)="onNoClick()">Cerrar</button> -->
         </div>
     </div>
 </div>

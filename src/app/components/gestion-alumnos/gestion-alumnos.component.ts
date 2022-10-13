@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Datos } from 'src/app/data/alumnos';
 import { Alumno } from 'src/app/models/Alumno';
+import { AlumnosService } from 'src/app/servicios/alumnos.service';
 import { AgregarAlumnoComponent } from './agregar-alumno/agregar-alumno.component';
 
 @Component({
@@ -15,7 +16,7 @@ import { AgregarAlumnoComponent } from './agregar-alumno/agregar-alumno.componen
 export class GestionAlumnosComponent implements OnInit {
 
   
-  listaAlumnos: Alumno[] = Datos.alumnos;
+  listaAlumnos: Alumno[] = this.servicioAlumnos.alumnos;
   
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -24,7 +25,8 @@ export class GestionAlumnosComponent implements OnInit {
   columnas: string[] = ['nombres', 'correo', 'edad','nacionalidad','top10','acciones'];
   datalistaAlumnos = new MatTableDataSource(this.listaAlumnos);
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog,
+    private servicioAlumnos: AlumnosService) {
       
    }
 
@@ -41,14 +43,16 @@ export class GestionAlumnosComponent implements OnInit {
     this.datalistaAlumnos.filter = filterValue.trim().toLowerCase();
   }
 
-  editarAlumno(){
+  editarAlumno(id_Alumno: number){
+    
+    this.servicioAlumnos.editarId = this.servicioAlumnos.alumnos[id_Alumno].id;
     const dialogRef = this.dialog.open(AgregarAlumnoComponent,{
       width: '50%',
       data: 'Modificar Alumno'
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.updateDataSource();
     });
   }
 
@@ -60,7 +64,19 @@ export class GestionAlumnosComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.updateDataSource();
     });
+  }
+
+  eliminarAlumno(id_Alumno: number){
+    this.servicioAlumnos.eliminarAlumno(id_Alumno);
+    this.updateDataSource();
+  }
+
+  updateDataSource() {
+    this.listaAlumnos = this.servicioAlumnos.alumnos;
+    // this.datalistaAlumnos.data = this.listaAlumnos;
+    this.datalistaAlumnos = new MatTableDataSource(this.listaAlumnos);
+    
   }
 }
